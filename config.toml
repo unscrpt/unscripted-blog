@@ -5,7 +5,7 @@ theme = 'hugo-theme-stack'
 
 [menu]
 [[menu.main]]
-    name = "Home"
+    name = "Website"
     url = "https://unscripted.ch"
     weight = 1
     identifier = "home"
