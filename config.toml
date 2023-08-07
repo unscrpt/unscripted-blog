@@ -1,0 +1,14 @@
+baseURL = 'https://blog.unscripted.ch/'
+languageCode = 'de'
+title = 'unscripted'
+theme = 'hugo-theme-stack'
+
+[menu]
+[[menu.main]]
+    name = "Home"
+    url = "https://unscripted.ch"
+    weight = 1
+    identifier = "home"
+    [menu.main.params]
+        icon = "home"
+        newTab = false
