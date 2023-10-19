@@ -22,7 +22,7 @@ tags:
 
 In einer Welt, die zunehmend von Technologie und Daten geprägt ist, kann kein Unternehmen es sich leisten, den Trend der Prozess-Digitalisierung zu ignorieren. Dies wird umso deutlicher, wenn wir die wachsende Herausforderung des Fachkräftemangels miteinbeziehen. Die Digitalisierung von Geschäftsprozessen bietet nicht nur eine Chance, effizienter und wettbewerbsfähiger zu werden, sondern auch, den Mangel an qualifiziertem Personal zu kompensieren. Durch automatisierte Systeme, cloudbasierte Lösungen und innovative Algorithmen können Unternehmen Aufgaben und Workflows optimieren, was wiederum zu einer Entlastung des menschlichen Personals führt.
 
-In diesem Blog Post möchte ich dir Anhand eines einfachen Beispiel's zeigen, wie Prozess Digitalisierung aussehen kann.
+In diesem Blog Post möchte ich Anhand eines einfachen Beispiel's zeigen, wie Prozess Digitalisierung aussehen kann.
 
 ## Der Prozess
 
