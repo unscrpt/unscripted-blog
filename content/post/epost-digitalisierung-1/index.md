@@ -18,7 +18,7 @@ tags:
     - Prozess   
 ---
 
-## Prozess-Digitalisierung: Die Zukunft der Unternehmensabläufe und Gegenmittel gegen den Fachkräftemangel
+## Prozess-Digitalisierung: Das Gegenmittel gegen den Fachkräftemangel
 
 In einer Welt, die zunehmend von Technologie und Daten geprägt ist, kann kein Unternehmen es sich leisten, den Trend der Prozess-Digitalisierung zu ignorieren. Dies wird umso deutlicher, wenn wir die wachsende Herausforderung des Fachkräftemangels miteinbeziehen. Die Digitalisierung von Geschäftsprozessen bietet nicht nur eine Chance, effizienter und wettbewerbsfähiger zu werden, sondern auch, den Mangel an qualifiziertem Personal zu kompensieren. Durch automatisierte Systeme, cloudbasierte Lösungen und innovative Algorithmen können Unternehmen Aufgaben und Workflows optimieren, was wiederum zu einer Entlastung des menschlichen Personals führt.
 
@@ -44,12 +44,14 @@ An dieser stelle optimieren wir den Prozess noch ein wenig. Wir wollen ja nicht 
 
 ![Optimierter Prozess](epost-prozess-optimiert.png) 
 
-### Vom Prozess zur Implementierung (überspringe wenn dich der technische Teil nicht interessiert)
+### Prozess zur Implementierung
+
+***Überspringe diesen Teil wenn dich der technische Aspekt nicht interessiert***
 
 Nun müssen wir prüfen, wie wir diesen Prozess im Azure Logic App abbilden können. Um die Liste aller Dokumente zu erhalten und diese herunterzuladen gibt es keinen Standard Konnektor in Azure Logic App, deshalb müssen wir die API Schnittstelle der ePost verwenden.
 Für SharePoint gibt es einen Konnektor in Azure Logic Apps, somit können wir die Datenablage einfach integrieren. 
 
-Glücklicherweise hat ePost eine öffentlich zuängliche API [Dokumentation](https://api.klara.ch/docs#) (hier könnten sich einige SaaS Anbieter an Beispiel nehmen). Mit der Dokumentation werden wir schnell fündig, die benötigen API Endpoints sind ***/epost/v2/letters*** und ***​/epost​/v2​/letters​/{letter-id}​/content***.
+Glücklicherweise hat ePost eine öffentlich zuängliche API [Dokumentation](https://api.klara.ch/docs#) (hier könnten sich einige SaaS Anbieter ein Beispiel nehmen). Mit der Dokumentation werden wir schnell fündig, die benötigen API Endpoints sind `/epost/v2/letters` und `​/epost​/v2​/letters​/{letter-id}​/content`.
 
 #### Nach neuen Dokumenten filtern
 
@@ -77,10 +79,10 @@ Gehen wir die einzelnen Punkte des Prozesses durch.
 |3|SharePoint Aktion|Lese Textdatei auf SharePoint um das Datum der letzen erfolgreichen Durchführung der Azure Logic App zu erhalten. Hier ist wichtig zu beachten, dass das File nicht durch den Workflow erstellt wird. Es muss also vor der ersten Ausführung des Workflows vorhanden sein.|
 |4|Variabel initialisieren|Hier definieren wir die Variabel fromDate. Diese wird benötigt um zu definieren welche Dokumente ab welchem Datum berücksichtig werden sollen. Die Variabel wird auf einen Tag nach dem Datum der letzten erfolgreichen Durchführung gesetzt.|
 |5|Variabel initialisieren|Hier definieren wir die Variabel toDate. Diese wird benötigt um zu definieren welche Dokumente bis welches Datum berücksichtig werden sollen. Theoretisch brauchen wir diese Variabel nicht, da uns reichen würde zu definieren, dass wir nur Dokumente ab einem bestimmten Datum herunterladen um die bereits heruntergeladenen Dokumente zu ignorieren. Jedoch wird diese Variabel von der API benötigt, da sie sonst die Dokumente fromDate Variabel ignoriert und keinen Filter anwendet.|
-|6|HTTP Request|Dieser HTTP Request nutzt den API Endpoint ***/epost/v2/letters***, dieser gibt uns eine Liste aller Dokumente.|
+|6|HTTP Request|Dieser HTTP Request nutzt den API Endpoint `/epost/v2/letters`, dieser gibt uns eine Liste aller Dokumente.|
 |7|Parse JSON|Die Antwort aus dem HTTP Request wird hier zu JSON konvoriert, so dass wir diese in den Nachfolgenden Schritten brauchen können.|
 |8|For-each Schleife|Diese Schleife geht die Liste aller Dokumente durch, die wir im vorherigen HTTP Request erhalten haben. Für jedes Dokument werden nun die Schritte 8.1 und 8.2 durchgeführt.|
-|8.1|HTTP Request|Mit dem API Endpoint ***/epost​/v2​/letters​/{letter-id}​/content*** wird der Inhalt des Dokumentes heruntergeladen.|
+|8.1|HTTP Request|Mit dem API Endpoint `/epost​/v2​/letters​/{letter-id}​/content` wird der Inhalt des Dokumentes heruntergeladen.|
 |8.2|SharePoint Aktion|In diesem Schritt wird das hertuntergeladene Dokument in SharePoint hochgeladen. Die hochgeladenen Dateien werden mit Timestamp und Titel welcher von der API zurückgegeben wird benannt.|
 |9|SharePoint Aktion|Schreibe heutiges Datum in SharePoint Text File für die nächste Durchführung.|
 
@@ -104,6 +106,8 @@ Uh oh! Was sehen wir denn da, alle Briefe sind mit dem Titel "Gescannter Brief" 
 Ich hoffe dieses einfache Beispiel hat dir einen Einblick in die Möglichkeiten der Digitalisierung von Prozessen gegeben und dich vielleicht sogar angeregt selber Prozesse in deinem Unternehmen zu digitalisieren.
 
 Mit Azure Logic App ist es auch Personen möglich Prozesse zu digitalisieren ohne tiefgreifende Programmiererfahrung. Jedoch braucht es ein gewisses Technologie Verständnis und Neugier sich in neue Themen einzuarbeiten.
+
+An diesem Punkt will ich auch erwähnen, dass der implementierte Prozess stark vereinfacht ist. Ich habe einfachheisthabler Checks wie zum Beispiel, die Überprüfung ob das Text File im SharePoint existiert nicht implementiert und es gibt auch kein wirkliches Error Handling. Bei einem Fehler in einem der Schritte wird der Prozess abgebrochen.
 
 **Im zweiten Teil des Blogpost's machen wir den Prozess "smart" in dem wir AI Services nutzen.**
 
