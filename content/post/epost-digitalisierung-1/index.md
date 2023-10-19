@@ -93,7 +93,7 @@ Im Screenshot ist zu sehen wie jeder Schritt erfolgreich durchläuft und die For
 
 ## Resultat
 
-Das Endresultat unserer Reise ist ein Ordner mit all den heruntergeladenen Dokumenten. Diese können dann hier weiter verwendet werden ohne sich in der ePost Weboberfläche anzumelden.
+Das Endresultat unserer Reise ist ein Ordner mit all den heruntergeladenen Dokumenten. Diese können weiter verwendet werden ohne sich in der ePost Weboberfläche anzumelden.
 
 Uh oh! Was sehen wir denn da, alle Briefe sind mit dem Titel "Gescannter Brief" betitelt. Dies ist nicht wirklich hilfreich, da wir so jedes PDF aufmachen müssen um das gewünschte PDF zu finden. Das ist leider der ePost geschuldet. Jeder Brief der eingescannt wird, wird mit "Gescannter Brief" betitelt, die Inhalte der Briefe werden nicht verwendet um einen aussagekräftigen Titel zu generieren. Genau hier werden wir im zweiten Teil mit AI ansetzen.
 
