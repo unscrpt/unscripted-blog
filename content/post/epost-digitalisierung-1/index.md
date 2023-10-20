@@ -20,7 +20,7 @@ tags:
 
 ## Digitalisierung im Geschäftsalltag: Ein Leitfaden für Business Leader
 
-In der heutigen, von Technologie durchdrungenen Welt ist die Digitalisierung von Geschäftsprozessen nicht mehr nur ein "Nice-to-have", sondern ein Muss. In diesem Artikel zeiche ich dir, wie du mit modernen Tools wie ePost und Azure Logic Apps deine Geschäftsprozesse optimieren kannst.
+In der heutigen, von Technologie durchdrungenen Welt ist die Digitalisierung von Geschäftsprozessen nicht mehr nur ein "Nice-to-have", sondern ein Muss. In diesem Artikel zeige ich dir, wie du mit modernen Tools wie ePost und Azure Logic Apps deine Geschäftsprozesse optimieren kannst.
 
 ### Warum Prozessdigitalisierung?
 
