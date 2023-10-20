@@ -52,7 +52,7 @@ Um den Prozess noch effizienter zu gestalten, laden wir nur die neuen Dokumente 
 
 Um den Prozess in Azure Logic App abzubilden, nutzen wir die den Standard-Konnektor für SharePoint. Für ePost gibt es keinen Standard-Konnektor, hier müssen wir auf die API von ePost zugreifen.
 
-In der öffentlich zugänglichen API [Dokumentation](https://api.klara.ch/docs#) der ePost (hier könnten sich einige SaaS Anbieter ein Beispiel nehmen) finden wir die benötigten API Endpoints `/epost/v2/letters` und `​/epost​/v2​/letters​/{letter-id}​/`.
+In der öffentlich zugänglichen API [Dokumentation](https://api.klara.ch/docs#) der ePost (hier könnten sich einige SaaS Anbieter ein Beispiel nehmen) finden wir die benötigten API Endpoints `/epost/v2/letters` und `​/epost​/v2​/letters​/{letter-id}​/content`.
 
 #### Nach neuen Dokumenten filtern
 
