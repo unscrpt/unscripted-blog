@@ -92,7 +92,7 @@ Gehen wir die einzelnen Prozessschritte durch.
 Nach der Konfiguration des Workflows und der Authentifizierung können wir testen.
 Im Screenshot ist zu sehen wie jeder Schritt erfolgreich durchläuft und die For-each Schleife 24-mal durchgeführt wird für 24 Dokumente.
 
-![Screenshot des Workflow Run History](epost-downloader-testlauf.png) 
+![Screenshot der Workflow Run History](epost-downloader-testlauf.png) 
 
 ## Resultat
 
