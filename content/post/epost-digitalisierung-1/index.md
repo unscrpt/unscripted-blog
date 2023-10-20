@@ -66,7 +66,7 @@ Für die Authentifizierung in SharePoint nutzen wir den integrierten Azure Logic
 
 Jetzt können wir mit dem Azure Logic App Designer unseren Prozess digitalisieren! Wie dass aussieht sieht ihr in der nachfolgenden Abbildung.
 
-![Prozess im Azure Logic App Designer](azure-app-logic-workflow.png) 
+![Prozess im Azure Logic App Designer](azure-logic-app-workflow.png) 
 
 Gehen wir die einzelnen Prozessschritte durch.
 
