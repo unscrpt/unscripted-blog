@@ -1,6 +1,6 @@
 ---
 title: Moderne Prozessdigitalisierung - Teil 1
-description: ePost Digitalisierung
+description: Wie wir mit ePost und Azure Logic Apps Briefe empfangen
 slug: epost-digitalisierung-1
 date: 2023-10-19 00:00:00+0000
 image: cover.png
@@ -18,100 +18,97 @@ tags:
     - Prozess   
 ---
 
-## Prozess-Digitalisierung: Das Gegenmittel gegen den Fachkräftemangel
+## Digitalisierung im Geschäftsalltag: Ein Leitfaden für Business Leader
 
-In einer Welt, die zunehmend von Technologie und Daten geprägt ist, kann kein Unternehmen es sich leisten, den Trend der Prozess-Digitalisierung zu ignorieren. Dies wird umso deutlicher, wenn wir die wachsende Herausforderung des Fachkräftemangels miteinbeziehen. Die Digitalisierung von Geschäftsprozessen bietet nicht nur eine Chance, effizienter und wettbewerbsfähiger zu werden, sondern auch, den Mangel an qualifiziertem Personal zu kompensieren. Durch automatisierte Systeme, cloudbasierte Lösungen und innovative Algorithmen können Unternehmen Aufgaben und Workflows optimieren, was wiederum zu einer Entlastung des menschlichen Personals führt.
+In der heutigen, von Technologie durchdrungenen Welt ist die Digitalisierung von Geschäftsprozessen nicht mehr nur ein "Nice-to-have", sondern ein Muss. In diesem Artikel zeigen wir Ihnen, wie Sie mit modernen Tools wie ePost und Azure Logic Apps Ihre Geschäftsprozesse optimieren können.
 
-In diesem Blog Post möchte ich Anhand eines einfachen Beispiel's zeigen, wie Prozess Digitalisierung aussehen kann.
+### Warum Prozessdigitalisierung?
 
-## Der Prozess
+Der Fachkräftemangel ist eine wachsende Herausforderung. Hier kommt die Prozessdigitalisierung ins Spiel: Sie ermöglicht es Unternehmen, effizienter und wettbewerbsfähiger zu werden und den Mangel an qualifiziertem Personal zu kompensieren. Automatisierte Systeme, cloudbasierte Lösungen und innovative Algorithmen können Unternehmen dabei helfen, ihre Workflows zu optimieren.
 
-Bei unscripted nutzen wir das ePost Angebot der schweizerischen Post. Dies ermöglicht es uns, analoge Briefe durch die Post einscannen zu lassen. Wir können die Briefe danach von überall und zentral auf der Weboberfläche einsehen. Leider ist die Weboberfläche sehr limitiert, wir können die Briefe einsehen, herunterladen und manuelle Tags vergeben.
+### Ein praktisches Beispiel: ePost Digitalisierung
 
-Wir sind nun mit einem typisches Problem von vielen SaaS Lösungen konfrontiert. Sie lösen ein Problem, jedoch schaffen sie Datensilos die man selbst integrieren muss. Dies ist vorallem für KMU's eine grosse Herausforderung, da oft das Know-How fehlt wie man die zur verfügung stehenden Schnittstellen nutzen kann.
+Bei unscripted nutzen wir das ePost Angebot der Schweizerischen Post. Dieses System ermöglicht es uns, physische Briefe digitalisieren zu lassen. Aber wie viele SaaS-Lösungen hat auch ePost seine Grenzen. Das Hauptproblem? Datensilos.
 
-In unserem Beispiel werden wir die Daten herunterladen und auf unsere eigene Datenablage speichern. Wir werden die No/Low-Code Plattform Azure Logic Apps verwenden um diesen Prozess abzubilden, da dieser viele Konnektoren für die Verbindung beliebter Services bietet.
+### Die Lösung: Integration mit Azure Logic Apps
 
-## Herangehensweise
+Azure Logic Apps bietet eine No/Low-Code Plattform, die eine einfache Integration ermöglicht. Mit dieser Plattform können wir Daten aus ePost herunterladen und in unserer eigenen Datenablage speichern. 
+
+## Umsetzung
 
 ### Prozess dokumentieren
 
-Um den Prozess zu digitalisieren müssen wir die involvierten Services identifizieren und verstehen, wie wir diese einbinden können. In unserem Beispiel haben wir zwei Services, den ePost Service und unsere Datenablage, in unserem Fall SharePoint. Danach zeichnen wir einen Prozessablauf auf um den Prozess visuell abzubilden. Ich habe diesen einfachen Prozess im untenstehenden BPMN Diagramm abgebildet.
+Um den Prozess zu digitalisieren identifizieren wir die zu integrierenden Services: ePost und SharePoint (unsere Datenablage). Zur Viusalisierung habe ich den Prozess aufgezeichnet.
 
 ![BPMN Diagramm des beschriebenen Prozesses](epost-prozess.png) 
 
-An dieser stelle optimieren wir den Prozess noch ein wenig. Wir wollen ja nicht jedes mal alle Dokumente erneut herunterladen und speichern. Aktuell haben wir noch nicht viele Dokumente im ePost Portal aber nach einigen Geschäftsjahren werden sich dort einige Dokumente ansammeln. Deshalb wollen wir nur die neu hinzugefügten Dokumente herunterladen, was im untenstehenden Diagramm abgebildet ist.
+Um den Prozess noch effizienter zu gestalten, laden wir nur die neuen Dokumente aus ePost herunter, wie im nachfolgenden Prozess abgebildet.
 
 ![Optimierter Prozess](epost-prozess-optimiert.png) 
 
 ### Prozess zur Implementierung
 
-***Überspringe diesen Teil wenn dich der technische Aspekt nicht interessiert***
+***Wenn du die technische Details überspringen möchtest, kannst du zum nächsten Abschnitt weitergehen.***
 
-Nun müssen wir prüfen, wie wir diesen Prozess im Azure Logic App abbilden können. Um die Liste aller Dokumente zu erhalten und diese herunterzuladen gibt es keinen Standard Konnektor in Azure Logic App, deshalb müssen wir die API Schnittstelle der ePost verwenden.
-Für SharePoint gibt es einen Konnektor in Azure Logic Apps, somit können wir die Datenablage einfach integrieren. 
+Um den Prozess in Azure Logic App abzubilden, nutzen wir die den Standard-Konnektor für SharePoint. Für ePost gibt es keinen Standard-Konnektor, hier müssen wir auf die API von ePost zugreifen.
 
-Glücklicherweise hat ePost eine öffentlich zuängliche API [Dokumentation](https://api.klara.ch/docs#) (hier könnten sich einige SaaS Anbieter ein Beispiel nehmen). Mit der Dokumentation werden wir schnell fündig, die benötigen API Endpoints sind `/epost/v2/letters` und `​/epost​/v2​/letters​/{letter-id}​/content`.
+In der öffentlich zugänglichen API [Dokumentation](https://api.klara.ch/docs#) der ePost (hier könnten sich einige SaaS Anbieter ein Beispiel nehmen) finden wir die benötigten API Endpoints `/epost/v2/letters` und `​/epost​/v2​/letters​/{letter-id}​/`.
 
 #### Nach neuen Dokumenten filtern
 
-Nun müssen wir uns überlegen, wie wir die die Dokumente filtern können, so das wir nur die noch nicht heruntergeladenen Dokumente erhalten. Im API Endpoint ***/epost/v2/letters*** gibt es die Möglichkeit Dokumente nach Datum zu filtern. Dies können wir verwenden um eine gefilterte Liste zu erhalten. Es würde auch anspruchsvollere Möglichkeiten geben, wie zum Beispiel eine separate Datenbank zu führen aller heruntergeladenen Dokumente und diese zum filtern verwenden. Da es sich hier um ein einfaches Beispiel handelt, werden wir den Datumsfilter verwenden.\
-Um diesen Filter verwenden zu können, muss die Azure Logic App bei jeder durchführung wissen, wann sie das letzte mal durchgeführt wurde. Leider gibt es keine Datenpersistenz zwischen den einzelnen Azure Logic App durchführungen, also müssen wir diese Datenpersistenz selber abbilden. Hierfür haben wir verschiedene Möglichkeiten wie die Verwendung einer Azure SQL Datenbank, Azure Blob Storage oder die Verwendung eines Text Files in SharePoint. Da es sich um einen sehr einfachen Datensatz handelt den wir speichern wollen (letzte Erfolgreiche Durchführung des Azure Logic App's) und da wir bereit eine SharePoint Anbindung benötigen verwenden wir in diesem Beispiel das Text File in SharePoint. 
+Wir filtern Dokumente nach Datum, um nur Neuzugänge herunterzuladen. Da die Azure Logic App keine Datenpersistenz hat, nutzen wir das Erstellungsdatum der neuesten Datei im Zielordner und setzen den Filter auf den folgenden Tag. Alternativen könnten wir auch Azure SQL, Blob Storage oder ein Textfile auf SharePoint hierfür verwenden.
 
 #### Authentifizierung
 
-Natürlich müssen wir uns an der ePost API und in SharePoint auch Authentifizieren, sonst könnte jeder auch unsere gescannten Briefe zugreifen. \
-Da SharePoint in Azure Logic App einen Konnektor hat, ist die Authentifizierung direkt integriert. Man kann sich mit OAuth mit einem Benutzer anmelden, welcher auf die gewünschte Fileablage Zugriff hat. Wir empfehlen hierfür einen dedizierten Benutzer zu verwenden, welcher nur auf die Fileablage Zugriff hat, auf welcher die Briefe gesichert werden sollen.
-Für den API Zugriff der ePost muss ein API key generiert werden. Dieser kann im Portal der ePost erstellt werden. Nun müssen wir den noch irgendwo sicher ablegen. Ich möchte vermeiden, diesen als Klartext Variabel im Azure Logic App Workflow einzufügen, da dieser dort durch unbefugte ausgelesen werden könnte und diese so auf sensible Daten Zugriff erhalten. Daher verwenden wir Azure Keyvault um den API Key zu schützen. Azure Keyvault können wir auch im Azure Logic App mittels Konnektor einfach integrieren. Die Authentifizierung um den Azure Keyvault auszulesen wird über Access Policies des Azure Key Vaults gesteuert, wobei die Azure Logic App sich mit einer Managed Identity am Keyvault authentifizieren kann.
+Für die Authentifizierung in SharePoint nutzen wir den integrierten Azure Logic App Konnektor welcher OAuth verwendet. Ein spezifischer Benutzer mit eingeschränktem Zugriff wird empfohlen. Für die ePost API wird ein API-Schlüssel benötigt, den wir sicher in Azure Keyvault speichern. Die Authentifizierung für den Keyvault erfolgt über dessen Access Policies und die Managed Identity der Azure Logic App.
 
 #### Azure Logic App Workflow
 
-Jetzt können wir mit dem Azure Logic App Designer unseren Prozess digitalisieren! Ich habe den Prozess bereits abgebildet, wie dass aussieht sieht ihr in der untenstehenden Abbildung.
+Jetzt können wir mit dem Azure Logic App Designer unseren Prozess digitalisieren! Wie dass aussieht sieht ihr in der nachfolgenden Abbildung.
 
-![Prozess im Azure Logic App Designer](azure-app-logic-overview.png) 
+![Prozess im Azure Logic App Designer](azure-app-logic-workflow.png) 
 
-Gehen wir die einzelnen Punkte des Prozesses durch.
+Gehen wir die einzelnen Prozessschritte durch.
 
 |Schritt|Typ|Beschreibung|
 |---|---|---|
-|1|Trigger|Hier definieren wie der Prozess gestartet wird. Es handelt sich hier um eine geplante Aktion die nach Zeitplan jeden Tag um 22.00 starten soll.|
-|2|KeyVault Aktion|Hier lesen wir den API Key für die ePost API aus. Dieser wird in allen HTTP Requests für die ePost API benötigt.|
-|3|SharePoint Aktion|Lese Textdatei auf SharePoint um das Datum der letzen erfolgreichen Durchführung der Azure Logic App zu erhalten. Hier ist wichtig zu beachten, dass das File nicht durch den Workflow erstellt wird. Es muss also vor der ersten Ausführung des Workflows vorhanden sein.|
-|4|Variabel initialisieren|Hier definieren wir die Variabel fromDate. Diese wird benötigt um zu definieren welche Dokumente ab welchem Datum berücksichtig werden sollen. Die Variabel wird auf einen Tag nach dem Datum der letzten erfolgreichen Durchführung gesetzt.|
-|5|Variabel initialisieren|Hier definieren wir die Variabel toDate. Diese wird benötigt um zu definieren welche Dokumente bis welches Datum berücksichtig werden sollen. Theoretisch brauchen wir diese Variabel nicht, da uns reichen würde zu definieren, dass wir nur Dokumente ab einem bestimmten Datum herunterladen um die bereits heruntergeladenen Dokumente zu ignorieren. Jedoch wird diese Variabel von der API benötigt, da sie sonst die Dokumente fromDate Variabel ignoriert und keinen Filter anwendet.|
-|6|HTTP Request|Dieser HTTP Request nutzt den API Endpoint `/epost/v2/letters`, dieser gibt uns eine Liste aller Dokumente.|
-|7|Parse JSON|Die Antwort aus dem HTTP Request wird hier zu JSON konvoriert, so dass wir diese in den Nachfolgenden Schritten brauchen können.|
-|8|For-each Schleife|Diese Schleife geht die Liste aller Dokumente durch, die wir im vorherigen HTTP Request erhalten haben. Für jedes Dokument werden nun die Schritte 8.1 und 8.2 durchgeführt.|
-|8.1|HTTP Request|Mit dem API Endpoint `/epost​/v2​/letters​/{letter-id}​/content` wird der Inhalt des Dokumentes heruntergeladen.|
-|8.2|SharePoint Aktion|In diesem Schritt wird das hertuntergeladene Dokument in SharePoint hochgeladen. Die hochgeladenen Dateien werden mit Timestamp und Titel welcher von der API zurückgegeben wird benannt.|
-|9|SharePoint Aktion|Schreibe heutiges Datum in SharePoint Text File für die nächste Durchführung.|
+|1|Trigger|Täglicher Start um 22:00.|
+|2|KeyVault Aktion|API Key für ePost API auslesen.|
+|3|Variabel initialisieren|`fromDate` auf 1970-01-01 setzen.|
+|4|Variabel initialisieren|`toDate` definieren (API benötigt es trotz Redundanz).|
+|5|SharePoint Aktion|Neueste Dateien im Verzeichnis abrufen.|
+|6|Conditional|Prüfung: Ist die Dateiliste leer?|
+|6T|Conditional - True|Bei leerer Liste: Keine Aktion.|
+|6F|Conditional - False|Aktionen für nicht-leere Liste.|
+|6F.1|Conditional - False|`fromDate` auf Tag nach neuester Datei setzen.|
+|7|HTTP Request|Dokumentenliste via `/epost/v2/letters` abrufen.|
+|8|Parse JSON|Antwort zu JSON konvertieren.|
+|9|For-each Schleife|Durch Dokumentenliste iterieren.|
+|9.1|HTTP Request|Dokumentinhalt via `/epost​/v2​/letters​/{letter-id}​/content` abrufen.|
+|9.2|SharePoint Aktion|Dokument in SharePoint mit Timestamp und Titel hochladen.|
 
 #### Testlauf
 
-Nach dem der Prozess in Azure Logic App abgebildet ist und die nötigen Authentifizierungen vorgenommen wurden können wir einen Testlauf durchführen.
-Im Screenshot ist zu sehen wie jeder Schritt erfolgreich durchläuft und die For-each Schleife einmal durchgeführt wird für ein Dokument.
+Nach der Konfiguration des Workflows und der Authentifizierung können wir testen.
+Im Screenshot ist zu sehen wie jeder Schritt erfolgreich durchläuft und die For-each Schleife 24-mal durchgeführt wird für 24 Dokumente.
 
 ![Screenshot des Workflow Run History](epost-downloader-testlauf.png) 
 
 ## Resultat
 
-Das Endresultat unserer Reise ist ein Ordner mit all den heruntergeladenen Dokumenten. Diese können weiter verwendet werden ohne sich in der ePost Weboberfläche anzumelden.
+Am Ende unserer Implementierung haben wir einen Ordner voller heruntergeladener Dokumente, die ohne ePost-Login zugänglich sind.
 
-Uh oh! Was sehen wir denn da, alle Briefe sind mit dem Titel "Gescannter Brief" betitelt. Dies ist nicht wirklich hilfreich, da wir so jedes PDF aufmachen müssen um das gewünschte PDF zu finden. Das ist leider der ePost geschuldet. Jeder Brief der eingescannt wird, wird mit "Gescannter Brief" betitelt, die Inhalte der Briefe werden nicht verwendet um einen aussagekräftigen Titel zu generieren. Genau hier werden wir im zweiten Teil mit AI ansetzen.
+Allerdings tragen alle Briefe den gleichen Titel: "Gescannter Brief". Das macht die Identifizierung einzelner Dokumente schwierig, da wir jedes PDF öffnen müssen, um den Inhalt zu erkennen. Dies liegt an der Standardbenennung von ePost. Im nächsten Blog Post werden wir mithilfe von AI-Technologie eine Lösung für dieses Problem vorstellen.
 
 ![Screenshot der heruntergeladenen Dateien](epost-downloader-results.png) 
 
 ## Fazit
 
-Ich hoffe dieses einfache Beispiel hat dir einen Einblick in die Möglichkeiten der Digitalisierung von Prozessen gegeben und dich vielleicht sogar angeregt selber Prozesse in deinem Unternehmen zu digitalisieren.
+Die Digitalisierung von Geschäftsprozessen ist mehr als nur ein Trend; sie ist eine Notwendigkeit. Mit den richtigen Tools und einem klaren Verständnis der zugrunde liegenden Prozesse kannst auch du die Vorteile der Digitalisierung nutzen.
 
-Mit Azure Logic App ist es auch Personen möglich Prozesse zu digitalisieren ohne tiefgreifende Programmiererfahrung. Jedoch braucht es ein gewisses Technologie Verständnis und Neugier sich in neue Themen einzuarbeiten.
-
-An diesem Punkt will ich auch erwähnen, dass der implementierte Prozess stark vereinfacht ist. Ich habe einfachheisthabler Checks wie zum Beispiel, die Überprüfung ob das Text File im SharePoint existiert nicht implementiert und es gibt auch kein wirkliches Error Handling. Bei einem Fehler in einem der Schritte wird der Prozess abgebrochen.
+So einen Prozess zu implementieren muss nicht kostspielig sein und kann schnell umgesetzt werden. Hast du in deinem Unternehmen ähnliche Herausforderungen? Schreib mir eine [Mail](mailto:loris@unscripted.ch) oder chatte mich an in [Microsoft Teams](https://link.unscripted.ch/teamschat_l).
 
 **Im zweiten Teil des Blogpost's machen wir den Prozess "smart" in dem wir AI Services nutzen.**
-
-Falls du dich zu den Möglichkeiten der Digitalisierung austauschen möchtest, kannst du mich in [Microsoft Teams](https://link.unscripted.ch/teamschat_l) anchatten/anrufen oder per [Mail](mailto:loris@unscripted.ch) erreichen.
 
 
 
