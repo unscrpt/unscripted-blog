@@ -20,7 +20,7 @@ tags:
 
 ## Digitalisierung im Geschäftsalltag: Ein Leitfaden für Business Leader
 
-In der heutigen, von Technologie durchdrungenen Welt ist die Digitalisierung von Geschäftsprozessen nicht mehr nur ein "Nice-to-have", sondern ein Muss. In diesem Artikel zeigen wir Ihnen, wie Sie mit modernen Tools wie ePost und Azure Logic Apps Ihre Geschäftsprozesse optimieren können.
+In der heutigen, von Technologie durchdrungenen Welt ist die Digitalisierung von Geschäftsprozessen nicht mehr nur ein "Nice-to-have", sondern ein Muss. In diesem Artikel zeiche ich dir, wie du mit modernen Tools wie ePost und Azure Logic Apps deine Geschäftsprozesse optimieren kannst.
 
 ### Warum Prozessdigitalisierung?
 
@@ -64,7 +64,7 @@ Für die Authentifizierung in SharePoint nutzen wir den integrierten Azure Logic
 
 #### Azure Logic App Workflow
 
-Jetzt können wir mit dem Azure Logic App Designer unseren Prozess digitalisieren! Wie dass aussieht sieht ihr in der nachfolgenden Abbildung.
+Jetzt können wir mit dem Azure Logic App Designer unseren Prozess digitalisieren! Wie dass aussieht siehst du in der nachfolgenden Abbildung.
 
 ![Prozess im Azure Logic App Designer](azure-logic-app-workflow.png) 
 
