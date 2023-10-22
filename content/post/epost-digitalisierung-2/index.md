@@ -68,7 +68,7 @@ Jetzt testen wir unseren neuen Workflow! Der Screenshot zeigt, dass alle Schritt
 
 ## Resultat
 
-Unser Zielordner ist nun mit den Absendernamen betitelt (Namen zensiert, unerwünschte Werbung sichtbar). Der Screenshot zeigt auch einen Fehler: Der "UID"-Brief stammt vom Bundesamt für Statistik. Bei 24 Dokumenten gab es zwei falsche und zwei unzureichende Titel, was einer Fehlerquote von 8% entspricht. Dies ist für uns akzeptabel, wir können die fehlerhaften und unzureichenden Titel manuell korrigieren.
+Die Daten im Zielordner sind nun mit den Absendernamen betitelt (Namen zensiert, unerwünschte Werbung sichtbar). Der Screenshot zeigt auch einen Fehler: Der "UID"-Brief stammt vom Bundesamt für Statistik. Bei 24 Dokumenten gab es zwei falsche und zwei unzureichende Titel, was einer Fehlerquote von 17% entspricht. Dies ist für uns akzeptabel, wir können die fehlerhaften und unzureichenden Titel manuell korrigieren. Um eine bessere Quote zu erhalten, könnten wir ein eigenes Modell trainieren, benötigen jedoch mehr Daten.
 
 ![Screenshot der heruntergeladenen Dateien](epost-downloader-results.png) 
 
