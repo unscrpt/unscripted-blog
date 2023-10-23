@@ -108,7 +108,7 @@ Die Digitalisierung von Geschäftsprozessen ist mehr als nur ein Trend; sie ist 
 
 So einen Prozess zu implementieren muss nicht kostspielig sein und kann schnell umgesetzt werden. Hast du in deinem Unternehmen ähnliche Herausforderungen? Schreib mir eine [Mail](mailto:loris@unscripted.ch) oder chatte mich an in [Microsoft Teams](https://link.unscripted.ch/teamschat_l).
 
-**Im zweiten Teil des Blogpost's machen wir den Prozess "smart" in dem wir AI Services nutzen.**
+**Im [zweiten Teil des Blogpost's](https://blog.unscripted.ch/post/epost-digitalisierung-2/) machen wir den Prozess "smart" in dem wir AI Services nutzen.**
 
 
 
